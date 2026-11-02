@@ -1,0 +1,79 @@
+                    <button type="button" class="analysis-tool-btn" id="btn-open-regression-analysis" data-overlay="regression">
+                        <i data-lucide="trending-up"></i>
+                        <span>계측 회귀분석</span>
+                    </button>
+<!-- @overlay -->
+    <div id="overlay-regression" class="analysis-overlay hidden">
+        <div class="analysis-overlay-header">
+            <div class="analysis-overlay-title"><i data-lucide="trending-up"></i> 계측 회귀분석</div>
+            <button type="button" class="btn btn-secondary btn-icon-only analysis-overlay-close" data-close-overlay title="닫기 (ESC)"><i data-lucide="x"></i></button>
+        </div>
+        <div class="analysis-overlay-body">
+            <div class="dashboard-card">
+                <div class="card-title">시험발파 회차 이력</div>
+                <div class="analysis-add-row">
+                    <select id="ov-reg-session-select"></select>
+                    <button type="button" id="ov-reg-btn-new-session" class="btn btn-primary"><i data-lucide="plus"></i> 새 시험발파 회차</button>
+                    <button type="button" id="ov-reg-btn-delete-session" class="btn btn-secondary"><i data-lucide="trash-2"></i> 회차 삭제</button>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">시험발파 실측치 입력</div>
+                <div class="table-container">
+                    <table class="report-table">
+                        <thead>
+                            <tr><th>거리 R(m)</th><th>장약량 W(kg)</th><th>실측 PPV(kine)</th><th></th></tr>
+                        </thead>
+                        <tbody id="ov-reg-datapoints-tbody">
+                            <tr><td colspan="4" class="empty-row">시험발파 회차를 먼저 생성하세요</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="analysis-add-row">
+                    <input type="number" id="ov-reg-new-r" placeholder="거리 R(m)" step="0.1">
+                    <input type="number" id="ov-reg-new-w" placeholder="장약량 W(kg)" step="0.1">
+                    <input type="number" id="ov-reg-new-v" placeholder="실측 PPV(kine)" step="0.01">
+                    <button type="button" id="ov-reg-btn-add-point" class="btn btn-primary"><i data-lucide="plus"></i> 추가</button>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">회귀분석 결과 (최소자승법, Log-Log Regression)</div>
+                <div class="metric-grid">
+                    <div class="metric-box">
+                        <span class="metric-label">지반상수 K</span>
+                        <span id="ov-reg-result-k" class="metric-value highlight-cyan">—</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">감쇠지수 n</span>
+                        <span id="ov-reg-result-n" class="metric-value highlight-cyan">—</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">결정계수 R²</span>
+                        <span id="ov-reg-result-r2" class="metric-value">—</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">95% 신뢰상한 K</span>
+                        <span id="ov-reg-result-k95" class="metric-value highlight-orange">—</span>
+                    </div>
+                </div>
+                <p class="sub-text" id="ov-reg-result-formula">데이터를 2개 이상 입력하면 회귀식이 표시됩니다.</p>
+                <button type="button" id="ov-reg-btn-apply" class="btn btn-primary" style="margin-top: 8px;" disabled><i data-lucide="check-check"></i> 도출된 K,n 설계에 즉시 적용</button>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">SD별 실측치 vs 예측치 일치도 검토</div>
+                <div class="table-container">
+                    <table class="report-table">
+                        <thead>
+                            <tr><th>환산거리 SD</th><th>실측 PPV(kine)</th><th>예측 PPV(kine)</th><th>오차율</th></tr>
+                        </thead>
+                        <tbody id="ov-reg-fit-tbody">
+                            <tr><td colspan="4" class="empty-row">데이터가 없습니다</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

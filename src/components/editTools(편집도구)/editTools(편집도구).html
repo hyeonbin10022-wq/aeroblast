@@ -1,0 +1,195 @@
+            <!-- ▶ 편집 도구: 캔버스 좌하단 플로팅 아이콘바 (아코디언 아님, 항상 표시) -->
+            <div class="view-toggles view-toggles-floating edit-tools-floating">
+                <button id="tool-pan" class="btn btn-toggle btn-icon-only" aria-label="이동 / 선택" data-tooltip="이동 / 선택">
+                    <i data-lucide="hand"></i>
+                </button>
+                <button id="tool-delete-hole" class="btn btn-toggle btn-icon-only" aria-label="공 삭제" data-tooltip="공 삭제">
+                    <i data-lucide="eraser"></i>
+                </button>
+                <button id="tool-move-hole" class="btn btn-toggle btn-icon-only" aria-label="공 이동" data-tooltip="공 이동">
+                    <i data-lucide="move"></i>
+                </button>
+                <button id="tool-add-hole" class="btn btn-toggle btn-icon-only" aria-label="공 추가" data-tooltip="공 추가">
+                    <i data-lucide="circle-dot"></i>
+                </button>
+                <button id="tool-ws-pattern" class="btn btn-toggle btn-icon-only" aria-label="W-S 자동 패턴" data-tooltip="W-S 자동 패턴">
+                    <i data-lucide="grid"></i>
+                </button>
+                <button id="tool-ab-line" class="btn btn-toggle btn-icon-only" aria-label="A-B 라인 패턴" data-tooltip="A-B 라인 패턴">
+                    <i data-lucide="git-commit"></i>
+                </button>
+                <button id="tool-draw-face" class="btn btn-toggle btn-icon-only" aria-label="자유면 그리기" data-tooltip="자유면 그리기">
+                    <i data-lucide="waves"></i>
+                </button>
+                <button id="tool-box-pattern" class="btn btn-toggle btn-icon-only" aria-label="박스 패턴" data-tooltip="박스 패턴">
+                    <i data-lucide="square-dashed"></i>
+                </button>
+                <button id="btn-clear-measurements" class="btn btn-icon-only btn-danger-outline" aria-label="측정선 초기화" data-tooltip="측정선 초기화">
+                    <i data-lucide="x-circle"></i>
+                </button>
+                <button id="btn-clear-holes" class="btn btn-icon-only btn-danger-outline" aria-label="발파공 삭제" data-tooltip="발파공 삭제">
+                    <i data-lucide="trash-2"></i>
+                </button>
+            </div>
+
+<!-- @overlay -->
+
+                <!-- A-B 라인 패턴 설정 모달 -->
+                <div id="abline-modal" class="custom-modal hidden" style="z-index: 100;">
+                    <div class="modal-content" style="max-width: 400px; text-align: left;">
+                        <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 1.15rem; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">A-B 라인 패턴 설정 (A-B Line Setup)</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">그려진 기준선을 바탕으로 다중 열 발파 패턴을 자동 생성합니다.</p>
+
+                        <div class="param-row" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">저항선 (Burden W)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="ab-input-burden" value="2.5" step="0.1" min="0.5">
+                                <span class="unit">m</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">공간격 (Spacing S)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="ab-input-spacing" value="3.125" step="0.1" min="0.5">
+                                <span class="unit">m</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">열 수 (Number of Rows)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="ab-input-rows" value="2" step="1" min="1" max="10">
+                                <span class="unit">열</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted); cursor: pointer;" for="ab-input-stagger">V자 모드 (엇갈림+대각선 시차)</label>
+                            <input type="checkbox" id="ab-input-stagger" checked style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--accent-cyan);">
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">열간 시차 (Row Delay)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="ab-input-row-delay" value="25" step="1" min="0">
+                                <span class="unit">ms</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">공간 시차 (Spacing Delay)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="ab-input-spacing-delay" value="50" step="1" min="0">
+                                <span class="unit">ms</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">공 경사 (Hole Inclination)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="ab-input-angle" value="90" step="1" min="45" max="90">
+                                <span class="unit">°</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">배치 방향</label>
+                            <button id="btn-ab-flip" class="btn btn-secondary" style="font-size: 0.8rem; padding: 4px 10px;">
+                                <i data-lucide="refresh-cw" style="width: 12px; height: 12px; vertical-align: middle;"></i> 방향 반전
+                            </button>
+                        </div>
+
+                        <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 20px;">
+                            <div>라인 실거리: <strong id="ab-info-length" style="color: var(--text-primary);">0.0 m</strong></div>
+                            <div>열당 공 수: <strong id="ab-info-holes" style="color: var(--accent-cyan);">0 공</strong></div>
+                        </div>
+
+                        <div class="modal-buttons" style="display: flex; gap: 8px;">
+                            <button id="btn-ab-cancel" class="btn btn-secondary" style="flex: 1;">취소</button>
+                            <button id="btn-ab-generate" class="btn btn-primary" style="flex: 1;">패턴 생성</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 자유면 패턴 설정 모달 -->
+                <div id="face-pattern-modal" class="custom-modal hidden" style="z-index: 100;">
+                    <div class="modal-content" style="max-width: 400px; text-align: left;">
+                        <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 1.15rem; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">자유면 패턴 설정 (Free Face Pattern)</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">그려진 자유면으로부터 저항선만큼 오프셋한 다중 열 발파 패턴을 자동 생성합니다.</p>
+
+                        <div id="face-burden-auto-note" style="display: none; font-size: 0.78rem; color: var(--accent-cyan); background: rgba(0, 243, 255, 0.08); border: 1px solid rgba(0, 243, 255, 0.25); border-radius: 6px; padding: 6px 10px; margin-bottom: 12px;">
+                            <i data-lucide="calculator" style="width: 12px; height: 12px; vertical-align: middle;"></i> Langefors 자동 설계의 실제 저항선(B) 값이 자동 반영되었습니다.
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">저항선 (Burden W)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="face-input-burden" value="2.5" step="0.1" min="0.5">
+                                <span class="unit">m</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">공간격 (Spacing S)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="face-input-spacing" value="3.125" step="0.1" min="0.5">
+                                <span class="unit">m</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">열 수 (Number of Rows)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="face-input-rows" value="2" step="1" min="1" max="10">
+                                <span class="unit">열</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted); cursor: pointer;" for="face-input-stagger">V자 모드 (엇갈림+대각선 시차)</label>
+                            <input type="checkbox" id="face-input-stagger" checked style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--accent-cyan);">
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">열간 시차 (Row Delay)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="face-input-row-delay" value="25" step="1" min="0">
+                                <span class="unit">ms</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">공간 시차 (Spacing Delay)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="face-input-spacing-delay" value="50" step="1" min="0">
+                                <span class="unit">ms</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">공 경사 (Hole Inclination)</label>
+                            <div class="input-unit-wrapper" style="width: 140px;">
+                                <input type="number" id="face-input-angle" value="90" step="1" min="45" max="90">
+                                <span class="unit">°</span>
+                            </div>
+                        </div>
+
+                        <div class="param-row" style="margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between;">
+                            <label style="font-size: 0.85rem; color: var(--text-muted);">배치 방향</label>
+                            <button id="btn-face-flip" class="btn btn-secondary" style="font-size: 0.8rem; padding: 4px 10px;">
+                                <i data-lucide="refresh-cw" style="width: 12px; height: 12px; vertical-align: middle;"></i> 방향 반전
+                            </button>
+                        </div>
+
+                        <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 20px;">
+                            <div>자유면 실거리: <strong id="face-info-length" style="color: var(--text-primary);">0.0 m</strong></div>
+                            <div>Row 1 예상 공 수: <strong id="face-info-holes" style="color: var(--accent-cyan);">0 공 / 열</strong></div>
+                        </div>
+
+                        <div class="modal-buttons" style="display: flex; gap: 8px;">
+                            <button id="btn-face-cancel" class="btn btn-secondary" style="flex: 1;">취소</button>
+                            <button id="btn-face-generate" class="btn btn-primary" style="flex: 1;">패턴 생성</button>
+                        </div>
+                    </div>
+                </div>

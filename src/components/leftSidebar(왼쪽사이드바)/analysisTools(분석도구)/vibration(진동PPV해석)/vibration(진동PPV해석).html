@@ -1,0 +1,72 @@
+                    <button type="button" class="analysis-tool-btn" id="btn-open-vibration-analysis" data-overlay="vibration">
+                        <i data-lucide="activity"></i>
+                        <span>진동(PPV) 해석</span>
+                    </button>
+<!-- @overlay -->
+    <div id="overlay-vibration" class="analysis-overlay hidden">
+        <div class="analysis-overlay-header">
+            <div class="analysis-overlay-title"><i data-lucide="activity"></i> 진동(PPV) 해석</div>
+            <button type="button" class="btn btn-secondary btn-icon-only analysis-overlay-close" data-close-overlay title="닫기 (ESC)"><i data-lucide="x"></i></button>
+        </div>
+        <div class="analysis-overlay-body">
+            <div class="dashboard-card">
+                <div class="card-title">자승근 환산거리 진동추정식</div>
+                <p class="sub-text">V = K · (R / √W)<sup>-n</sup> [kine, cm/s] — 지발당 최대장약량(W_max) 기준</p>
+                <div class="param-row">
+                    <label for="ov-vib-input-k">지반상수 K</label>
+                    <div class="input-unit-wrapper"><input type="number" id="ov-vib-input-k" step="0.1"><span class="unit"></span></div>
+                </div>
+                <div class="param-row">
+                    <label for="ov-vib-input-n">감쇠지수 n</label>
+                    <div class="input-unit-wrapper"><input type="number" id="ov-vib-input-n" step="0.01"><span class="unit"></span></div>
+                </div>
+                <div class="metric-grid">
+                    <div class="metric-box box-double">
+                        <span class="metric-label">최대 지발당 장약량 (W_max)</span>
+                        <span id="ov-vib-wmax" class="metric-value highlight-orange">0.0</span>
+                        <span class="metric-unit">kg</span>
+                    </div>
+                    <div class="metric-box box-double">
+                        <span class="metric-label">해당 뇌관 그룹</span>
+                        <span id="ov-vib-wmax-delay" class="metric-value">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">인근 주요 보안물건별 진동 영향성 검토표</div>
+                <div class="table-container">
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>보안물건명</th><th>구분</th><th>위도</th><th>경도</th><th>허용PPV(kine)</th>
+                                <th>이격거리(m)</th><th>예상PPV(kine)</th><th>안전율</th><th>판정</th><th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="ov-vib-structures-tbody">
+                            <tr><td colspan="10" class="empty-row">등록된 보안물건이 없습니다</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="analysis-add-row">
+                    <input type="text" id="ov-vib-new-name" placeholder="보안물건명 (예: 현장사무소)">
+                    <select id="ov-vib-new-category">
+                        <option value="Residential">주거(Residential)</option>
+                        <option value="Bridge">교량(Bridge)</option>
+                        <option value="Livestock">축사(Livestock)</option>
+                        <option value="Cultural">문화재(Cultural)</option>
+                        <option value="Other">기타(Other)</option>
+                    </select>
+                    <input type="number" id="ov-vib-new-lat" placeholder="위도" step="0.000001">
+                    <input type="number" id="ov-vib-new-lng" placeholder="경도" step="0.000001">
+                    <input type="number" id="ov-vib-new-allowed" placeholder="허용PPV(kine)" step="0.01">
+                    <button type="button" id="ov-vib-btn-add-structure" class="btn btn-primary"><i data-lucide="plus"></i> 추가</button>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">거리별 지반진동 감쇠 예측치 (Distance vs PPV)</div>
+                <div id="ov-vib-distance-cards" class="metric-grid analysis-distance-grid"></div>
+            </div>
+        </div>
+    </div>

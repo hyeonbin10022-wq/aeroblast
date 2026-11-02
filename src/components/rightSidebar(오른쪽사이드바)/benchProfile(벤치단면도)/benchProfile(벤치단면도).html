@@ -1,0 +1,57 @@
+                <!-- 벤치 단면도 탭 (Langefors 엔진 연동) -->
+                <div id="tab-content-bench-profile" class="tab-pane">
+                    <div class="dashboard-card">
+                        <div class="card-title">2D 벤치 단면도 (Bench Cross-Section)</div>
+                        <p class="sub-text" style="margin-bottom: 8px;">좌측 'Langefors 자동 설계' 입력값에 따라 실시간으로 변형됩니다. 선택 공 보기에서 구간을 클릭하면 좌측 입력창으로 이동합니다.</p>
+                        <!-- 보기 전환: 설계 기준(Langefors) ↔ 선택 공 1개. 2개 이상 선택 시 "N개 선택됨" 표시 + 설계 기준 유지 -->
+                        <div class="tab-header" style="border-radius: 6px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 8px;">
+                            <button id="bench-view-design" class="tab-btn active">설계 기준</button>
+                            <button id="bench-view-hole" class="tab-btn" disabled>선택 공</button>
+                        </div>
+                        <div id="bench-profile-container" style="width:100%; aspect-ratio: 3/4; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; background: var(--bg-elevated);">
+                            <canvas id="bench-profile-canvas" style="width:100%; height:100%;"></canvas>
+                        </div>
+                    </div>
+                    <!-- 주요 계산 결과 카드 -->
+                    <div class="dashboard-card" id="lf-results-card" style="display:none;">
+                        <div class="card-title">Langefors 엔진 결과</div>
+                        <div class="metric-grid">
+                            <div class="metric-box">
+                                <span class="metric-label">최대 저항선 (B_max)</span>
+                                <span id="lf-val-bmax" class="metric-value">—</span>
+                                <span class="metric-unit">m</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-label">실제 저항선 (B)</span>
+                                <span id="lf-val-b" class="metric-value">—</span>
+                                <span class="metric-unit">m</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-label">천공장 (H)</span>
+                                <span id="lf-val-h" class="metric-value">—</span>
+                                <span class="metric-unit">m</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-label">공간격 (S)</span>
+                                <span id="lf-val-s" class="metric-value">—</span>
+                                <span class="metric-unit">m</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-label">공당 장약 (Q_tot, 기폭약 포함)</span>
+                                <span id="lf-val-qtot" class="metric-value highlight-orange">—</span>
+                                <span class="metric-unit">kg</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-label">비장약량 (q)</span>
+                                <span id="lf-val-q" class="metric-value highlight-cyan">—</span>
+                                <span class="metric-unit">kg/m³</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-label">비천공량 (b)</span>
+                                <span id="lf-val-b-metric" class="metric-value">—</span>
+                                <span class="metric-unit">m/m³</span>
+                            </div>
+                        </div>
+                        <div id="lf-warnings" style="margin-top: 8px;"></div>
+                    </div>
+                </div>

@@ -1,0 +1,137 @@
+                <!-- 요약 대시보드 탭 -->
+                <div id="tab-content-summary" class="tab-pane active">
+                    <div class="dashboard-card">
+                        <div class="card-title">디자인 통계 (Pattern Stats)</div>
+                        <div class="metric-grid">
+                            <div class="metric-box">
+                                <span class="metric-label">총 발파공 수</span>
+                                <span id="val-total-holes" class="metric-value">0</span>
+                                <span class="metric-unit">공</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-label">평균 공간격 (S)</span>
+                                <span id="val-avg-spacing" class="metric-value">0.00</span>
+                                <span class="metric-unit">m</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-label">평균 저항선 (B)</span>
+                                <span id="val-avg-burden" class="metric-value">0.00</span>
+                                <span class="metric-unit">m</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-label">총 천공 길이</span>
+                                <span id="val-total-drill-length" class="metric-value">0.0</span>
+                                <span class="metric-unit">m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-title">생산량 예측 (Blast Volume)</div>
+                        <div class="metric-grid">
+                            <div class="metric-box box-double">
+                                <span class="metric-label">발파 체적 (Volume)</span>
+                                <span id="val-total-volume" class="metric-value highlight-cyan">0.0</span>
+                                <span class="metric-unit">m³</span>
+                            </div>
+                            <div class="metric-box box-double">
+                                <span class="metric-label">발파 중량 (Tonnage)</span>
+                                <span id="val-total-tonnage" class="metric-value highlight-cyan">0.0</span>
+                                <span class="metric-unit">ton</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-title">화약 사용량 & 비장약량 (Charging & PF)</div>
+                        <div class="metric-grid">
+                            <div class="metric-box box-double">
+                                <span class="metric-label">공당 화약량</span>
+                                <span id="val-explosive-per-hole" class="metric-value">0.0</span>
+                                <span class="metric-unit">kg</span>
+                            </div>
+                            <div class="metric-box box-double">
+                                <span class="metric-label">총 폭약 소요량</span>
+                                <span id="val-total-explosive" class="metric-value highlight-orange">0.0</span>
+                                <span class="metric-unit">kg</span>
+                            </div>
+                            <div class="metric-box box-double">
+                                <span class="metric-label">비장약량 (Powder Factor)</span>
+                                <div class="pf-progress-container">
+                                    <span id="val-powder-factor" class="metric-value highlight-yellow">0.00</span>
+                                    <span class="metric-unit">kg/m³</span>
+                                </div>
+                                <div class="pf-status" id="val-pf-status">발파공을 배치하세요</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 물량 산출 요약 -->
+                    <div class="dashboard-card">
+                        <div class="card-title">발파 자재 소요 요약</div>
+                        <ul class="materials-list">
+                            <li>
+                                <span>벌크 에멀젼 폭약 (Bulk Emulsion)</span>
+                                <span class="val" id="mat-bulk-explosive">0.0 kg</span>
+                            </li>
+                            <li>
+                                <span>부스터 (Booster / 250g)</span>
+                                <span class="val" id="mat-booster">0 EA</span>
+                            </li>
+                            <li>
+                                <span>비전기 뇌관 (Detonator)</span>
+                                <span class="val" id="mat-detonator">0 EA</span>
+                            </li>
+                            <li>
+                                <span>메인 도폭선 (Trunkline)</span>
+                                <span class="val" id="mat-trunkline">0.0 m</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 지발당 진동(PPV) 예측 -->
+                    <div class="dashboard-card">
+                        <div class="card-title">지발당 진동 예측 (Vibration)</div>
+                        <div class="metric-grid">
+                            <div class="metric-box box-double">
+                                <span class="metric-label">최대 지발당 장약량 (W_max)</span>
+                                <span id="val-wmax" class="metric-value highlight-orange">0.0</span>
+                                <span class="metric-unit">kg</span>
+                            </div>
+                            <div class="metric-box box-double">
+                                <span class="metric-label">해당 뇌관 그룹</span>
+                                <span id="val-wmax-delay" class="metric-value">—</span>
+                            </div>
+                        </div>
+                        <p class="sub-text" style="margin: 8px 0;">V = 200 × (D / √W_max) ^ -1.6 (자승근 환산거리식, 기준치 0.5 cm/s)</p>
+                        <div class="table-container">
+                            <table class="report-table">
+                                <thead>
+                                    <tr>
+                                        <th>이격거리 D (m)</th>
+                                        <th>예측 진동 V (cm/s)</th>
+                                        <th>판정</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="vibration-table-tbody">
+                                    <tr><td colspan="3" class="empty-row">발파공을 배치하세요</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="param-row" style="margin-top: 10px;">
+                            <label for="input-custom-distance">임의 거리 (D)</label>
+                            <div class="input-unit-wrapper">
+                                <input type="number" id="input-custom-distance" step="1" min="1" placeholder="예: 120">
+                                <span class="unit">m</span>
+                            </div>
+                        </div>
+                        <div class="metric-grid">
+                            <div class="metric-box box-double">
+                                <span class="metric-label">예측 진동 V</span>
+                                <span id="val-custom-ppv" class="metric-value highlight-cyan">—</span>
+                                <span class="metric-unit">cm/s</span>
+                            </div>
+                        </div>
+                        <div class="pf-status" id="val-custom-ppv-status"></div>
+                    </div>
+                </div>

@@ -1,0 +1,65 @@
+    <div id="print-section" class="print-only">
+        <div class="print-header">
+            <h2>AeroBlast Pro - 발파 설계 및 천공 계획서</h2>
+            <div class="print-meta">
+                <span>일시: <span id="print-date"></span></span>
+                <span>설계자: 안티그래비티 AI 엔지니어</span>
+            </div>
+        </div>
+        <hr>
+        <div class="print-body">
+            <h3>1. 발파 개요 및 설계 매개변수</h3>
+            <table class="print-table">
+                <tr>
+                    <th>설계 저항선 (B)</th><td id="print-p-burden">2.5 m</td>
+                    <th>설계 공간격 (S)</th><td id="print-p-spacing">3.0 m</td>
+                </tr>
+                <tr>
+                    <th>벤치 높이 (H)</th><td id="print-p-bench">10.0 m</td>
+                    <th>부천공 (Sub-drill)</th><td id="print-p-subdrill">1.0 m</td>
+                </tr>
+                <tr>
+                    <th>공경 (Diameter)</th><td id="print-p-diameter">76 mm</td>
+                    <th>가짐 길이 (Stemming)</th><td id="print-p-stemming">2.2 m</td>
+                </tr>
+            </table>
+
+            <h3>2. 예측 발파 수량</h3>
+            <table class="print-table">
+                <tr>
+                    <th>총 발파공 수</th><td id="print-m-holes">0 공</td>
+                    <th>평균 저항선</th><td id="print-m-burden">0.0 m</td>
+                </tr>
+                <tr>
+                    <th>평균 공간격</th><td id="print-m-spacing">0.0 m</td>
+                    <th>총 천공 길이</th><td id="print-m-drill-length">0.0 m</td>
+                </tr>
+                <tr>
+                    <th>발파 체적 (Volume)</th><td id="print-m-volume">0.0 m³</td>
+                    <th>발파 중량 (Tonnage)</th><td id="print-m-tonnage">0.0 ton</td>
+                </tr>
+                <tr>
+                    <th>총 사용 폭약량</th><td id="print-m-explosive">0.0 kg</td>
+                    <th>평균 비장약량</th><td id="print-m-pf">0.00 kg/m³</td>
+                </tr>
+            </table>
+
+            <h3>3. 발파공별 천공/장약 상세 일람표</h3>
+            <table class="print-table" id="print-loading-sheet-table">
+                <thead>
+                    <tr>
+                        <th>공 ID</th>
+                        <th>열 (Row)</th>
+                        <th>천공 깊이 (m)</th>
+                        <th>저항선 (m)</th>
+                        <th>공간격 (m)</th>
+                        <th>폭약량 (kg)</th>
+                        <th>가짐 (m)</th>
+                    </tr>
+                </thead>
+                <tbody id="print-sheet-tbody">
+                    <!-- JS로 채워짐 -->
+                </tbody>
+            </table>
+        </div>
+    </div>

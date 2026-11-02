@@ -1,0 +1,76 @@
+            <!-- ▶ 아코디언: 발파 시뮬레이션 (MS 그룹 요약 + 뇌관 시차 편집 + 행/공간 시차 일괄 적용 + 재생) -->
+            <section class="accordion-section" data-accordion="blast-simulation">
+                <div class="accordion-header">
+                    <div class="section-title">
+                        <i data-lucide="zap"></i> 발파 시뮬레이션
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-body-inner">
+
+                        <!-- (a) MS 그룹 요약 -->
+                        <div class="param-title">MS 그룹 요약</div>
+                        <table class="report-table" style="margin-bottom: 12px;">
+                            <thead>
+                                <tr><th>MS</th><th>공 개수</th><th>총 장약량</th></tr>
+                            </thead>
+                            <tbody id="blast-sim-groups-tbody">
+                                <tr><td colspan="3" class="empty-row">발파공을 배치하세요</td></tr>
+                            </tbody>
+                        </table>
+
+                        <!-- (b) 선택된 공의 뇌관 시차 편집 -->
+                        <div class="param-title">선택된 공의 뇌관 시차</div>
+                        <p id="blast-sim-select-hint" style="font-size: 0.78rem; color: var(--text-muted); margin: 0 0 12px;">
+                            공을 선택하면 여기서 시차를 편집할 수 있습니다.
+                        </p>
+                        <div id="blast-sim-delay-editor" class="param-row" style="display:none; margin-bottom: 12px;">
+                            <label id="blast-sim-delay-label" for="input-blast-sim-delay">뇌관 시차 (MS/ms)</label>
+                            <div class="input-unit-wrapper">
+                                <input type="text" id="input-blast-sim-delay" placeholder="MS1">
+                            </div>
+                        </div>
+
+                        <!-- (c) 행간/공간 시차 일괄 적용 — 현재 선택된 공들에만 적용 -->
+                        <div class="param-title">행/공간 시차 일괄 적용</div>
+                        <div class="param-row">
+                            <label for="input-blast-sim-row-delay">행간 시차 (Row Delay)</label>
+                            <div class="input-unit-wrapper">
+                                <input type="number" id="input-blast-sim-row-delay" value="25" step="1" min="0">
+                                <span class="unit">ms</span>
+                            </div>
+                        </div>
+                        <div class="param-row">
+                            <label for="input-blast-sim-spacing-delay">공간 시차 (Spacing Delay)</label>
+                            <div class="input-unit-wrapper">
+                                <input type="number" id="input-blast-sim-spacing-delay" value="50" step="1" min="0">
+                                <span class="unit">ms</span>
+                            </div>
+                        </div>
+                        <button id="btn-blast-sim-apply-row-spacing" class="btn btn-secondary btn-full" style="margin: 4px 0 16px;" title="선택된 공들을 기존 행(row) 구조 기준으로 재정렬해 시차를 배정합니다">
+                            선택한 공에 적용
+                        </button>
+
+                        <!-- (d) 재생 컨트롤 -->
+                        <div class="param-title">재생</div>
+                        <div class="param-row" style="align-items: center;">
+                            <button id="btn-blast-sim-play" class="btn btn-secondary btn-full" title="뇌관 시차 순서에 따라 캔버스에서 순차 기폭 애니메이션 재생">
+                                <i data-lucide="play"></i> <span id="blast-sim-play-label">재생</span>
+                            </button>
+                        </div>
+                        <div class="param-row">
+                            <label for="input-blast-sim-step-ms">스텝 간격</label>
+                            <div class="input-unit-wrapper">
+                                <input type="number" id="input-blast-sim-step-ms" value="200" step="50" min="50">
+                                <span class="unit">ms</span>
+                            </div>
+                        </div>
+                        <div class="param-row" style="flex-direction: column; align-items: stretch; gap: 4px;">
+                            <input type="range" id="input-blast-sim-timeline" min="0" max="0" value="0" step="1" style="width:100%;">
+                            <span id="blast-sim-timeline-label" style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">—</span>
+                        </div>
+
+                    </div>
+                </div>
+            </section>

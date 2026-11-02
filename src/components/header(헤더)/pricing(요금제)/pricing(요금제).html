@@ -1,0 +1,46 @@
+            <button id="btn-pricing" class="btn btn-secondary" title="요금제 보기">
+                <i data-lucide="gem"></i> 요금제
+            </button>
+
+            <!-- 요금제 모달 -->
+            <div id="pricing-modal" class="custom-modal hidden" style="z-index: 110;">
+                <div class="modal-content" style="max-width: 720px; text-align: left;">
+                    <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 1.15rem; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">💎 요금제</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">사업자 등록 완료 후 결제 기능이 열릴 예정입니다. 지금은 요금제 비교만 확인하실 수 있습니다.</p>
+
+                    <div id="pricing-cards-container" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <div class="pricing-card" data-tier="free" style="flex: 1; min-width: 180px; border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; position: relative;">
+                            <span class="pricing-card-badge" style="display: none; position: absolute; top: 10px; right: 10px; font-size: 0.65rem; font-weight: 700; color: var(--accent-cyan); border: 1px solid var(--accent-cyan); border-radius: 4px; padding: 2px 6px;">현재 플랜</span>
+                            <div style="font-weight: 700; font-size: 1rem; margin-bottom: 6px;">무료</div>
+                            <ul style="font-size: 0.8rem; color: var(--text-muted); padding-left: 18px; margin: 0;">
+                                <li>클라우드 프로젝트 최대 2개</li>
+                                <li>2D 평면도 / 단면도</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-card" data-tier="pro" style="flex: 1; min-width: 180px; border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; position: relative;">
+                            <span class="pricing-card-badge" style="display: none; position: absolute; top: 10px; right: 10px; font-size: 0.65rem; font-weight: 700; color: var(--accent-cyan); border: 1px solid var(--accent-cyan); border-radius: 4px; padding: 2px 6px;">현재 플랜</span>
+                            <div style="font-weight: 700; font-size: 1rem; margin-bottom: 6px;">프로</div>
+                            <ul style="font-size: 0.8rem; color: var(--text-muted); padding-left: 18px; margin: 0 0 12px 0;">
+                                <li>클라우드 프로젝트 무제한</li>
+                                <li>3D 뷰어</li>
+                                <li>A-B Line 자동 패턴 도구</li>
+                            </ul>
+                            <button class="btn btn-primary btn-upgrade-tier" data-tier="pro" style="width: 100%;">업그레이드</button>
+                        </div>
+                        <div class="pricing-card" data-tier="pro_max" style="flex: 1; min-width: 180px; border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; position: relative;">
+                            <span class="pricing-card-badge" style="display: none; position: absolute; top: 10px; right: 10px; font-size: 0.65rem; font-weight: 700; color: var(--accent-cyan); border: 1px solid var(--accent-cyan); border-radius: 4px; padding: 2px 6px;">현재 플랜</span>
+                            <div style="font-weight: 700; font-size: 1rem; margin-bottom: 6px;">프로 맥스</div>
+                            <ul style="font-size: 0.8rem; color: var(--text-muted); padding-left: 18px; margin: 0 0 12px 0;">
+                                <li>클라우드 프로젝트 무제한</li>
+                                <li>3D 뷰어</li>
+                                <li>A-B Line 자동 패턴 도구</li>
+                            </ul>
+                            <button class="btn btn-primary btn-upgrade-tier" data-tier="pro_max" style="width: 100%;">업그레이드</button>
+                        </div>
+                    </div>
+
+                    <div class="modal-buttons" style="display: flex; gap: 8px; margin-top: 20px;">
+                        <button id="btn-pricing-close" class="btn btn-secondary" style="flex: 1;">닫기</button>
+                    </div>
+                </div>
+            </div>

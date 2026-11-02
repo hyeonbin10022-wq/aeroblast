@@ -1,0 +1,96 @@
+            <!-- ▶ 아코디언: 발파공 편집 (구 플로팅 팝업) — 공 선택 시 자동 펼침, 선택 해제 시 자동 접힘 -->
+            <section class="accordion-section" data-accordion="hole-editor">
+                <div class="accordion-header">
+                    <div class="section-title">
+                        <i data-lucide="target"></i> 발파공 편집 <span id="hole-editor-title" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);"></span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                        <p id="hole-editor-empty" class="sub-text">캔버스에서 공을 클릭하면 여기서 편집할 수 있습니다.</p>
+                        <!-- 선택된 공 좌표정보 (위도/경도) + txt 출력 — 단일/다중 선택 공통 -->
+                        <div id="hole-coord-info-section" class="param-row" style="flex-direction: column; align-items: stretch; margin-bottom: 8px;">
+                            <button id="btn-toggle-coord-info" class="btn btn-secondary btn-full">
+                                <i data-lucide="map-pin"></i> 공 좌표정보
+                            </button>
+                            <div id="hole-coord-info-list" class="hidden" style="max-height:160px; overflow-y:auto; font-family: var(--font-mono); font-size:0.75rem; margin-top:6px; padding:6px; border:1px solid var(--border-color); border-radius:6px; background: var(--bg-elevated); white-space: pre;"></div>
+                            <button id="btn-coord-info-export" class="btn btn-secondary btn-full" style="margin-top:6px;">
+                                <i data-lucide="download"></i> txt로 출력
+                            </button>
+                        </div>
+                        <!-- 단일 선택 (단면도는 오른쪽 사이드바 "벤치 단면도" 탭에 표시) -->
+                        <div id="hole-editor-single" style="display:none;">
+                            <div class="param-row">
+                                <label for="input-hole-charge-mode">장약 방식</label>
+                                <select id="input-hole-charge-mode" class="param-select">
+                                    <option value="single">단일 (ANFO)</option>
+                                    <option value="dual">이중 (에멀젼)</option>
+                                </select>
+                            </div>
+                            <div class="param-row" id="hole-anfo-weight-row">
+                                <label for="input-hole-anfo-weight" id="hole-anfo-weight-label">ANFO 중량 (기폭약 별도)</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="input-hole-anfo-weight" step="0.1" min="0">
+                                    <span class="unit">kg</span>
+                                </div>
+                            </div>
+                            <div class="param-row" id="hole-column-ratio-row" style="display:none;">
+                                <label for="input-hole-column-ratio">상부장약 비율</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="input-hole-column-ratio" step="0.05" min="0.1" max="1">
+                                    <span class="unit">배</span>
+                                </div>
+                            </div>
+                            <div class="param-row">
+                                <label for="input-hole-anfo-density" id="hole-anfo-density-label">ANFO 밀도</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="input-hole-anfo-density" step="0.1" min="0.1">
+                                    <span class="unit">kg/m</span>
+                                </div>
+                            </div>
+                            <div class="param-row">
+                                <label for="input-hole-stemming">전색 (Stemming)</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="input-hole-stemming" step="0.1" min="0">
+                                    <span class="unit">m</span>
+                                </div>
+                            </div>
+                            <div class="param-row" id="hole-primer-weight-row">
+                                <label for="input-hole-primer-weight">기폭약 중량</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="input-hole-primer-weight" step="0.1" min="0">
+                                    <span class="unit">kg</span>
+                                </div>
+                            </div>
+                            <div class="param-row" id="hole-primer-length-row">
+                                <label for="input-hole-primer-length">기폭약 길이</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="input-hole-primer-length" step="0.01" min="0">
+                                    <span class="unit">m</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 다중 선택: 일괄 수정 툴바 -->
+                        <div id="hole-editor-batch" style="display:none;">
+                            <div class="param-title" id="hole-editor-batch-title">N개 공 선택됨</div>
+                            <div class="param-row">
+                                <label for="input-batch-anfo-density">장약 집중도 (lb)</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="input-batch-anfo-density" step="0.1" min="0.1" placeholder="변경 안함">
+                                    <span class="unit">kg/m</span>
+                                </div>
+                            </div>
+                            <div class="param-row">
+                                <label for="input-batch-stemming">전색 (Stemming)</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="input-batch-stemming" step="0.1" min="0" placeholder="변경 안함">
+                                    <span class="unit">m</span>
+                                </div>
+                            </div>
+                            <button id="btn-batch-apply" class="btn btn-primary btn-full" style="margin-top: 8px;">일괄 적용</button>
+                        </div>
+                    </div>
+                </div>
+            </section>

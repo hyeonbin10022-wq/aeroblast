@@ -1,0 +1,132 @@
+                    <button type="button" class="analysis-tool-btn" id="btn-open-kuzram-analysis" data-overlay="kuzram">
+                        <i data-lucide="bar-chart-3"></i>
+                        <span>Kuz-Ram 파쇄도</span>
+                    </button>
+<!-- @overlay -->
+    <div id="overlay-kuzram" class="analysis-overlay hidden">
+        <div class="analysis-overlay-header">
+            <div class="analysis-overlay-title"><i data-lucide="bar-chart-3"></i> Kuz-Ram 파쇄도</div>
+            <button type="button" class="btn btn-secondary btn-icon-only analysis-overlay-close" data-close-overlay title="닫기 (ESC)"><i data-lucide="x"></i></button>
+        </div>
+        <div class="analysis-overlay-body">
+            <div class="dashboard-card">
+                <div class="card-title">암반계수(A) 산출 — Lilly Blastability Index (Cunningham 보정)</div>
+                <p class="sub-text">A = 0.06 × (RMD + RDI + HF)</p>
+                <div class="param-row">
+                    <label for="ov-kz-select-rmd">암반 상태(RMD)</label>
+                    <select id="ov-kz-select-rmd">
+                        <option value="powdery">분상/미고결(10)</option>
+                        <option value="blocky">괴상+절리 (JPS+JPA)</option>
+                        <option value="massive">괴상/괴체(50)</option>
+                    </select>
+                </div>
+                <div class="param-row" id="ov-kz-joint-row" style="display:none; gap:8px;">
+                    <label for="ov-kz-select-jps">절리 간격/방향</label>
+                    <select id="ov-kz-select-jps"></select>
+                    <select id="ov-kz-select-jpa"></select>
+                </div>
+                <div class="param-row">
+                    <label>암반밀도 (설계값 재사용)</label>
+                    <div class="input-unit-wrapper"><span id="ov-kz-rock-density-readout">2.65</span><span class="unit">t/m³</span></div>
+                </div>
+                <div class="param-row">
+                    <label for="ov-kz-input-ucs">일축압축강도 UCS</label>
+                    <div class="input-unit-wrapper"><input type="number" id="ov-kz-input-ucs" step="5"><span class="unit">MPa</span></div>
+                </div>
+                <div class="param-row">
+                    <label for="ov-kz-input-e">영률 E</label>
+                    <div class="input-unit-wrapper"><input type="number" id="ov-kz-input-e" step="1"><span class="unit">GPa</span></div>
+                </div>
+                <div class="metric-grid" style="margin-top: 12px;">
+                    <div class="metric-box">
+                        <span class="metric-label">RMD</span>
+                        <span id="ov-kz-result-rmd" class="metric-value">—</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">RDI</span>
+                        <span id="ov-kz-result-rdi" class="metric-value">—</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">HF</span>
+                        <span id="ov-kz-result-hf" class="metric-value">—</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">암반계수 A</span>
+                        <span id="ov-kz-result-a" class="metric-value highlight-cyan">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">폭약/장약 조건</div>
+                <div class="param-row">
+                    <label for="ov-kz-select-explosive">적용 폭약 (RWS 조회)</label>
+                    <select id="ov-kz-select-explosive">
+                        <option value="ANFO">ANFO</option>
+                        <option value="EMULSION">에멀젼 (Emulite 150)</option>
+                    </select>
+                </div>
+                <div class="param-row">
+                    <label for="ov-kz-input-w">천공 정밀도 편차 W</label>
+                    <div class="input-unit-wrapper"><input type="number" id="ov-kz-input-w" step="0.01"><span class="unit">m</span></div>
+                </div>
+                <div class="metric-grid">
+                    <div class="metric-box">
+                        <span class="metric-label">비장약량 q (설계값)</span>
+                        <span id="ov-kz-readout-q" class="metric-value">—</span>
+                        <span class="metric-unit">kg/m³</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">공당 평균 장약량 Q</span>
+                        <span id="ov-kz-readout-charge" class="metric-value">—</span>
+                        <span class="metric-unit">kg</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">RWS</span>
+                        <span id="ov-kz-readout-rws" class="metric-value">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">파쇄도 예측 결과 (Kuznetsov + Cunningham 균일지수)</div>
+                <div class="metric-grid">
+                    <div class="metric-box">
+                        <span class="metric-label">평균파쇄도 x_m (D50)</span>
+                        <span id="ov-kz-result-xm" class="metric-value highlight-orange">—</span>
+                        <span class="metric-unit">cm</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">D80</span>
+                        <span id="ov-kz-result-d80" class="metric-value">—</span>
+                        <span class="metric-unit">cm</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">균일지수 n</span>
+                        <span id="ov-kz-result-n" class="metric-value">—</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">대괴율 (&gt;50cm)</span>
+                        <span id="ov-kz-result-oversize" class="metric-value highlight-yellow">—</span>
+                        <span class="metric-unit">%</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">미분율 (&lt;2.5cm)</span>
+                        <span id="ov-kz-result-undersize" class="metric-value">—</span>
+                        <span class="metric-unit">%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">입도분포 곡선 (Rosin-Rammler 통과율)</div>
+                <svg id="ov-kz-curve-svg" viewBox="0 0 560 260" style="width:100%; height:auto; background: rgba(255,255,255,0.02); border-radius: 8px;"></svg>
+                <div class="table-container">
+                    <table class="report-table">
+                        <thead><tr><th>입경 x (cm)</th><th>통과율 R(x)</th></tr></thead>
+                        <tbody id="ov-kz-curve-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

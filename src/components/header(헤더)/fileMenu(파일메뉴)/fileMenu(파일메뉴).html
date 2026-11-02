@@ -1,0 +1,17 @@
+            <div class="header-dropdown-wrapper">
+                <button id="btn-file-menu" class="btn btn-secondary" title="파일 내보내기/가져오기">
+                    <i data-lucide="file-text"></i> 파일 <i data-lucide="chevron-down" style="width:12px;height:12px;margin-left:-4px;"></i>
+                </button>
+                <div id="dropdown-file" class="header-dropdown-menu">
+                    <button id="btn-export-json" class="btn">
+                        <i data-lucide="download"></i> 내보내기 (JSON)
+                    </button>
+                    <button id="btn-export-csv" class="btn" title="전체 핀 좌표 목록을 위경도 GPS CSV로 내보내기">
+                        <i data-lucide="file-spreadsheet"></i> 내보내기 (CSV)
+                    </button>
+                    <button id="btn-import-json" class="btn" onclick="document.getElementById('import-file').click()">
+                        <i data-lucide="upload"></i> 가져오기 (JSON)
+                    </button>
+                    <input type="file" id="import-file" style="display: none;" accept=".json">
+                </div>
+            </div>

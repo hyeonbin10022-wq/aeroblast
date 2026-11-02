@@ -1,0 +1,23 @@
+# Geospatial / Large Data Files
+*.tif
+*.tiff
+*.las
+*.laz
+*.obj
+*.gltf
+*.glb
+*.tfw
+*.xml
+
+# Server & temp files
+*.log
+.system_generated/
+node_modules/
+dist/
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.env
+.env.*

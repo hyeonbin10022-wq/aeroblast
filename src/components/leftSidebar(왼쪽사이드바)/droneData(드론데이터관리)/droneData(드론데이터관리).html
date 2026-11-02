@@ -1,0 +1,182 @@
+            <!-- ▶ 아코디언 1: 드론 데이터 관리 (3개 업로드 통합) -->
+            <section class="accordion-section" data-accordion="drone-data">
+                <div class="accordion-header">
+                    <div class="section-title">
+                        <i data-lucide="hard-drive-upload"></i> 드론 데이터 관리
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                        <div class="upload-cards-grid">
+                            <!-- 카드 1: 정사영상 -->
+                            <div class="upload-card" id="drop-zone-tif" title="정사영상 (.tif/.tiff) 파일을 드롭하거나 클릭하세요">
+                                <div class="upload-card-icon">
+                                    <i data-lucide="image"></i>
+                                </div>
+                                <div class="upload-card-text">
+                                    <div class="upload-card-title">정사영상 (.tif)</div>
+                                    <div class="upload-card-sub">GPS 좌표 자동 분석</div>
+                                </div>
+                                <input type="file" id="file-uploader-tif" accept=".tif,.tiff" style="display: none;">
+                            </div>
+                            <!-- 카드 2: 3D 모델 -->
+                            <div class="upload-card" id="drop-zone-3d" title="3D 모델 (.obj/.gltf/.glb) 파일을 드롭하거나 클릭하세요">
+                                <div class="upload-card-icon">
+                                    <i data-lucide="box"></i>
+                                </div>
+                                <div class="upload-card-text">
+                                    <div class="upload-card-title">3D 지형 (.obj/.gltf)</div>
+                                    <div class="upload-card-sub">GPS 원점 자동 정렬</div>
+                                </div>
+                                <input type="file" id="file-uploader-3d" accept=".obj,.gltf,.glb" style="display: none;">
+                            </div>
+                            <!-- 카드 3: 포인트 클라우드 -->
+                            <div class="upload-card" id="drop-zone-laz" title="포인트 클라우드 (.las/.laz) 파일을 드롭하거나 클릭하세요">
+                                <div class="upload-card-icon">
+                                    <i data-lucide="scatter-chart"></i>
+                                </div>
+                                <div class="upload-card-text">
+                                    <div class="upload-card-title">포인트클라우드 (.laz)</div>
+                                    <div class="upload-card-sub">브라우저 실시간 디코딩</div>
+                                </div>
+                                <input type="file" id="file-uploader-laz" accept=".las,.laz" style="display: none;">
+                            </div>
+                        </div>
+                        <!-- 3D 모델 옵션 -->
+                        <label style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; margin-top: 10px; cursor: pointer; user-select: none;">
+                            <input type="checkbox" id="chk-real-scale-3d" checked style="width: 14px; height: 14px; cursor: pointer; accent-color: var(--accent-cyan);">
+                            실측 스케일 유지 (RTK 드론 모델용)
+                        </label>
+                        <div class="demo-actions" style="margin-top: 8px;">
+                            <button id="btn-load-demo-3d" class="btn btn-accent-outline btn-full" style="font-size: 0.8rem; padding: 6px 12px;">
+                                <i data-lucide="box" style="width: 14px; height: 14px;"></i> 스위스 데모 3D 지형 로드
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+                <!-- 스케일 보정 모달 (입력창) -->
+                <div id="scale-modal" class="custom-modal hidden" style="z-index: 100;">
+                    <div class="modal-content">
+                        <h3>스케일 설정</h3>
+                        <p>지정한 선의 실제 거리를 입력하세요.</p>
+                        <div class="input-unit-wrapper">
+                            <input type="number" id="input-scale-distance" value="10" min="0.1" step="0.1">
+                            <span class="unit">m</span>
+                        </div>
+                        <div class="modal-buttons">
+                            <button id="btn-scale-cancel" class="btn btn-secondary">취소</button>
+                            <button id="btn-scale-save" class="btn btn-primary">설정</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 정사영상 외부 좌표(TFW) 및 수동 GPS 보정 모달 -->
+                <div id="tif-gps-modal" class="custom-modal hidden" style="z-index: 110;">
+                    <div class="modal-content" style="max-width: 420px; text-align: left;">
+                        <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 1.15rem; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">정사영상 외부 좌표 보정</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.4;">
+                            업로드한 TIF 파일에 내장 GPS 좌표 태그가 없거나 해석할 수 없습니다.<br>
+                            동반된 <strong>.tfw 파일</strong>을 업로드하거나 <strong>수동 GPS 좌표</strong>를 입력해 주십시오.
+                        </p>
+                        
+                        <!-- 탭 선택: TFW 파일 또는 수동 입력 -->
+                        <div style="display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 14px;">
+                            <button id="tab-tif-tfw" class="btn" style="flex: 1; background: transparent; border: none; border-bottom: 2px solid var(--accent-cyan); color: var(--text-primary); border-radius: 0; font-size: 0.85rem; padding: 6px;">TFW 파일 업로드</button>
+                            <button id="tab-tif-manual" class="btn" style="flex: 1; background: transparent; border: none; color: var(--text-muted); border-radius: 0; font-size: 0.85rem; padding: 6px;">수동 GPS 좌표 입력</button>
+                        </div>
+
+                        <!-- TFW 파일 업로드 영역 -->
+                        <div id="panel-tif-tfw" style="margin-bottom: 16px;">
+                            <div id="drop-zone-tfw" class="drop-zone" style="padding: 20px; border-style: dashed;">
+                                <i data-lucide="file-text" style="width: 24px; height: 24px; color: var(--accent-cyan); margin-bottom: 6px;"></i>
+                                <p style="font-size: 0.8rem; margin: 4px 0;">동일한 파일명의 .tfw 파일 드롭 또는 클릭</p>
+                                <input type="file" id="file-uploader-tfw" accept=".tfw" style="display: none;">
+                            </div>
+                            <div class="param-row" style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">
+                                <label style="font-size: 0.8rem; color: var(--text-muted);">좌표계 선택 (Projection)</label>
+                                <select id="select-tfw-projection" style="width: 180px;">
+                                    <option value="EPSG:5186">EPSG:5186 (중부원점 2010)</option>
+                                    <option value="EPSG:5179" selected>EPSG:5179 (UTM-K 통합)</option>
+                                    <option value="EPSG:5187">EPSG:5187 (동부원점 2010)</option>
+                                    <option value="EPSG:5185">EPSG:5185 (서부원점 2010)</option>
+                                    <option value="EPSG:5181">EPSG:5181 (중부원점 과거)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 수동 GPS 입력 영역 -->
+                        <div id="panel-tif-manual" class="hidden" style="margin-bottom: 16px;">
+                            <div class="param-row" style="margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                                <label style="font-size: 0.8rem; color: var(--text-muted);">위도 (Latitude)</label>
+                                <div class="input-unit-wrapper" style="width: 180px;">
+                                    <input type="number" id="input-tif-lat" value="35.1796" step="0.000001" min="-90" max="90">
+                                    <span class="unit">°N</span>
+                                </div>
+                            </div>
+                            <div class="param-row" style="margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                                <label style="font-size: 0.8rem; color: var(--text-muted);">경도 (Longitude)</label>
+                                <div class="input-unit-wrapper" style="width: 180px;">
+                                    <input type="number" id="input-tif-lon" value="128.9000" step="0.000001" min="-180" max="180">
+                                    <span class="unit">°E</span>
+                                </div>
+                            </div>
+                            <div class="param-row" style="margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                                <label style="font-size: 0.8rem; color: var(--text-muted);">픽셀 크기 (해상도)</label>
+                                <div class="input-unit-wrapper" style="width: 180px;">
+                                    <input type="number" id="input-tif-resolution" value="0.25" step="0.01" min="0.01">
+                                    <span class="unit">m/px</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-buttons" style="display: flex; gap: 8px;">
+                            <button id="btn-tif-gps-cancel" class="btn btn-secondary" style="flex: 1;">취소</button>
+                            <button id="btn-tif-gps-apply" class="btn btn-primary" style="flex: 1;">좌표 적용</button>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- 3D 지형 좌표 및 스케일 설정 모달 -->
+            <div id="terrain-gps-modal" class="custom-modal hidden" style="z-index: 100;">
+                <div class="modal-content" style="max-width: 400px; text-align: left;">
+                    <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 1.15rem; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">3D 지형 좌표 및 스케일 설정</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">업로드한 3D 모델의 실제 위치 정보(RTK GPS 위경도)를 입력하여 고도차 및 실거리를 정확히 매핑합니다.</p>
+                    
+                    <div class="param-row" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                        <label style="font-size: 0.85rem; color: var(--text-muted);">위도 (Latitude)</label>
+                        <div class="input-unit-wrapper" style="width: 160px;">
+                            <input type="number" id="terrain-lat" value="36.5" step="0.000001" min="-90" max="90">
+                            <span class="unit">°N</span>
+                        </div>
+                    </div>
+
+                    <div class="param-row" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                        <label style="font-size: 0.85rem; color: var(--text-muted);">경도 (Longitude)</label>
+                        <div class="input-unit-wrapper" style="width: 160px;">
+                            <input type="number" id="terrain-lon" value="127.5" step="0.000001" min="-180" max="180">
+                            <span class="unit">°E</span>
+                        </div>
+                    </div>
+
+                    <div class="param-row" style="margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between;">
+                        <label style="font-size: 0.85rem; color: var(--text-muted);">좌표계 종류</label>
+                        <select id="terrain-coord-type" style="width: 160px;">
+                            <option value="mercator">Web Mercator (드론맵핑)</option>
+                            <option value="local" selected>Local / UTM (실측 1:1)</option>
+                        </select>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 10px; border-radius: 6px; font-size: 0.8rem; line-height: 1.5; color: var(--text-muted); margin-bottom: 20px;">
+                        <div>적용할 스케일: <strong id="terrain-scale-info" style="color: var(--accent-cyan);">1.0000 (1단위 = 1.00m)</strong></div>
+                        <div style="font-size: 0.75rem; margin-top: 4px;">* 위도에 따른 Mercator 투영 왜곡(cos Lat)이 자동으로 교정 반영됩니다.</div>
+                    </div>
+
+                    <div class="modal-buttons" style="display: flex; gap: 8px;">
+                        <button id="btn-terrain-gps-cancel" class="btn btn-secondary" style="flex: 1;">기본값 적용</button>
+                        <button id="btn-terrain-gps-apply" class="btn btn-primary" style="flex: 1;">좌표/스케일 적용</button>
+                    </div>
+                </div>
+            </div>

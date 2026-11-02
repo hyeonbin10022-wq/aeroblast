@@ -1,0 +1,47 @@
+            <div class="header-dropdown-wrapper">
+                <button id="btn-cloud-menu" class="btn btn-secondary" title="클라우드 저장/불러오기">
+                    <i data-lucide="cloud"></i> 클라우드 <i data-lucide="chevron-down" style="width:12px;height:12px;margin-left:-4px;"></i>
+                </button>
+                <div id="dropdown-cloud" class="header-dropdown-menu">
+                    <button id="btn-cloud-save" class="btn">
+                        <i data-lucide="cloud-upload"></i> 클라우드 저장
+                    </button>
+                    <button id="btn-cloud-list" class="btn">
+                        <i data-lucide="folder-open"></i> 프로젝트 목록
+                    </button>
+                </div>
+            </div>
+
+            <!-- 클라우드 저장 모달 -->
+            <div id="cloud-save-modal" class="custom-modal hidden" style="z-index: 100;">
+                <div class="modal-content" style="max-width: 400px; text-align: left;">
+                    <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 1.15rem; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">☁️ 클라우드 저장</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">현재의 천공 패턴 및 발파 매개변수를 Supabase 클라우드 데이터베이스에 안전하게 백업합니다.</p>
+                    
+                    <div class="param-row" style="margin-bottom: 15px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+                        <label style="font-size: 0.85rem; color: var(--text-muted);">프로젝트명 (현장명)</label>
+                        <input type="text" id="cloud-project-name" placeholder="예: 김해 석산 현장 A공구" style="width: 100%; box-sizing: border-box; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary);">
+                    </div>
+
+                    <div class="modal-buttons" style="display: flex; gap: 8px; margin-top: 20px;">
+                        <button id="btn-cloud-save-cancel" class="btn btn-secondary" style="flex: 1;">취소</button>
+                        <button id="btn-cloud-save-confirm" class="btn btn-primary" style="flex: 1;">저장하기</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 클라우드 프로젝트 목록 모달 -->
+            <div id="cloud-list-modal" class="custom-modal hidden" style="z-index: 100;">
+                <div class="modal-content" style="max-width: 500px; text-align: left;">
+                    <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 1.15rem; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">📂 클라우드 프로젝트 목록</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">데이터베이스에 저장된 현장 목록입니다. 불러올 프로젝트를 선택해 주세요.</p>
+                    
+                    <div id="cloud-project-list-container" style="max-height: 250px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 6px; padding: 4px; margin-bottom: 20px; background: var(--bg-body);">
+                        <div style="text-align: center; color: var(--text-muted); padding: 20px; font-size: 0.85rem;">불러오는 중...</div>
+                    </div>
+
+                    <div class="modal-buttons" style="display: flex; gap: 8px;">
+                        <button id="btn-cloud-list-close" class="btn btn-secondary" style="flex: 1;">닫기</button>
+                    </div>
+                </div>
+            </div>

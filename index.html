@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroBlast Pro - 드론 기반 발파 패턴 설계 스튜디오</title>
+    <link rel="stylesheet" href="/src/styles/base(공통스타일).css">
+    <link rel="stylesheet" href="/src/styles/print(인쇄스타일).css">
+    <link rel="stylesheet" href="/src/components/leftSidebar(왼쪽사이드바)/analysisTools(분석도구)/analysisOverlay(분석오버레이공용).css">
+    <link rel="stylesheet" href="/src/components/editTools(편집도구)/editTools(편집도구).css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Three.js & OrbitControls & Loaders -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <!-- Proj4 for coordinate transformation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
+
+    <!-- OpenLayers Map API -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.3.1/ol.css">
+    <script src="https://cdn.jsdelivr.net/npm/ol@v10.3.1/dist/ol.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/geotiff"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Loaders.gl for parsing LAS/LAZ files in the browser -->
+    <script type="module">
+        import { load } from 'https://cdn.jsdelivr.net/npm/@loaders.gl/core@4.3.0/+esm';
+        import { LASLoader } from 'https://cdn.jsdelivr.net/npm/@loaders.gl/las@4.3.0/+esm';
+        window.loaders = { load, LASLoader };
+    </script>
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-notification">
+        <i data-lucide="info" class="toast-icon"></i>
+        <span id="toast-message">알림 메시지</span>
+    </div>
+
+    <!-- 화면 조립 -->
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+                    <button type="button" class="analysis-tool-btn" id="btn-open-moct-analysis" data-overlay="moct">
+                        <i data-lucide="landmark"></i>
+                        <span>국토부/비장약량</span>
+                    </button>
+<!-- @overlay -->
+    <div id="overlay-moct" class="analysis-overlay hidden">
+        <div class="analysis-overlay-header">
+            <div class="analysis-overlay-title"><i data-lucide="landmark"></i> 국토부/비장약량</div>
+            <button type="button" class="btn btn-secondary btn-icon-only analysis-overlay-close" data-close-overlay title="닫기 (ESC)"><i data-lucide="x"></i></button>
+        </div>
+        <div class="analysis-overlay-body">
+            <div class="dashboard-card">
+                <div class="card-title">국토교통부 표준공법 Type 분류 (지발당 최대장약량 W_max 기준)</div>
+                <p class="sub-text">출처: 국토교통부 「도로공사 노천발파 설계・시공지침」 — 진동(PPV) 해석 화면의 W_max를 그대로 사용합니다.</p>
+                <div class="metric-grid">
+                    <div class="metric-box box-double">
+                        <span class="metric-label">최대 지발당 장약량 (W_max)</span>
+                        <span id="ov-moct-wmax" class="metric-value highlight-orange">0.0</span>
+                        <span class="metric-unit">kg/delay</span>
+                    </div>
+                    <div class="metric-box box-double">
+                        <span class="metric-label">판정 결과</span>
+                        <span id="ov-moct-type-badge" class="metric-value highlight-cyan">TYPE —</span>
+                        <span id="ov-moct-type-label" class="metric-unit">—</span>
+                    </div>
+                </div>
+                <div class="table-container" style="margin-top: 12px;">
+                    <table class="report-table">
+                        <thead><tr><th>구분</th><th>공법</th><th>지발당 허용장약량</th></tr></thead>
+                        <tbody id="ov-moct-type-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">비산(Flyrock) 안전거리 — Richards &amp; Moore(2002)</div>
+                <p class="sub-text">Lmax = (k²/g)·(√m/B)<sup>2.6</sup> 계열식. 출처: Richards &amp; Moore, "Flyrock Control – By Chance or Design", ISEE 2002.</p>
+                <div class="param-row">
+                    <label for="ov-moct-input-k">암반정수 k (연암 13.5 ~ 경암 27)</label>
+                    <div class="input-unit-wrapper"><input type="number" id="ov-moct-input-k" step="0.5"><span class="unit"></span></div>
+                </div>
+                <div class="analysis-add-row">
+                    <button type="button" id="ov-moct-btn-soft" class="btn btn-secondary">연암(k=13.5) 적용</button>
+                    <button type="button" id="ov-moct-btn-hard" class="btn btn-secondary">경암(k=27) 적용</button>
+                </div>
+                <div class="metric-grid" style="margin-top: 12px;">
+                    <div class="metric-box">
+                        <span class="metric-label">① 정면비산(Face burst)</span>
+                        <span id="ov-moct-face-burst" class="metric-value">0.0</span>
+                        <span class="metric-unit">m</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">② 상부분화(Cratering)</span>
+                        <span id="ov-moct-cratering" class="metric-value">0.0</span>
+                        <span class="metric-unit">m</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">③ 전색이탈(Stemming eject)</span>
+                        <span id="ov-moct-stemming" class="metric-value">0.0</span>
+                        <span class="metric-unit">m</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">설계 최대비산거리</span>
+                        <span id="ov-moct-lmax" class="metric-value highlight-orange">0.0</span>
+                        <span class="metric-unit">m</span>
+                    </div>
+                </div>
+                <p class="sub-text" style="margin-top: 12px;">참고(Lundborg 1981, q&gt;0.2 kg/m³ 조건): 예상비산거리 L=<span id="ov-moct-lundborg-l">—</span>m ·
+                    적정파쇄 최대암괴 φ=<span id="ov-moct-lundborg-phi">—</span>m · 절대상한 Lmax=<span id="ov-moct-lundborg-lmax">—</span>m</p>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">이격거리 안전기준</div>
+                <p class="sub-text">원저자 권고 안전계수: 장비 이격거리 = 2×Lmax, 작업자 이격거리 = 4×Lmax</p>
+                <div class="metric-grid">
+                    <div class="metric-box">
+                        <span class="metric-label">장비 최소 이격거리</span>
+                        <span id="ov-moct-equip-clearance" class="metric-value highlight-cyan">0.0</span>
+                        <span class="metric-unit">m</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">작업자 최소 이격거리</span>
+                        <span id="ov-moct-personnel-clearance" class="metric-value highlight-cyan">0.0</span>
+                        <span class="metric-unit">m</span>
+                    </div>
+                </div>
+                <p id="ov-moct-clearance-status" class="sub-text" style="margin-top: 12px;"></p>
+            </div>
+        </div>
+    </div>

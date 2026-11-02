@@ -1,0 +1,93 @@
+            <!-- ▶ 아코디언 4: Langefors 자동 설계 엔진 (기존 설계변수와 완전 독립) -->
+            <section class="accordion-section" data-accordion="langefors-engine">
+                <div class="accordion-header">
+                    <div class="section-title">
+                        <i data-lucide="calculator"></i> Langefors 자동 설계
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-chevron"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-body-inner">
+                        <div class="param-group">
+                            <div class="param-title">현장 조건</div>
+                            <div class="param-row">
+                                <label for="lf-bench-height">벤치 높이 (K)</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="lf-bench-height" value="15.0" step="0.5" min="4">
+                                    <span class="unit">m</span>
+                                </div>
+                            </div>
+                            <div class="param-row">
+                                <label for="lf-hole-diameter">천공경 (d)</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="lf-hole-diameter" value="76" step="1" min="50">
+                                    <span class="unit">mm</span>
+                                </div>
+                            </div>
+                            <div class="param-row">
+                                <label for="lf-blast-width">발파 폭 (w)</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="lf-blast-width" value="26.0" step="1" min="5">
+                                    <span class="unit">m</span>
+                                </div>
+                            </div>
+                            <div class="param-row">
+                                <label for="lf-rock-constant">암반계수 (c)</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="lf-rock-constant" value="0.4" step="0.01" min="0.3" max="0.5">
+                                    <span class="unit">-</span>
+                                </div>
+                            </div>
+                            <div class="param-row">
+                                <label for="lf-hole-angle">천공 각도 (θ)</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="lf-hole-angle" value="90" step="1" min="45" max="90">
+                                    <span class="unit">°</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="param-group">
+                            <div class="param-title">폭약 설정</div>
+                            <div class="param-row">
+                                <label for="lf-explosive-type">폭약 종류</label>
+                                <select id="lf-explosive-type" class="param-select">
+                                    <option value="ANFO" selected>ANFO (lb=3.60)</option>
+                                    <option value="EMULSION">에멀젼 Emulite (lb=5.00)</option>
+                                    <option value="CUSTOM">수동 입력</option>
+                                </select>
+                            </div>
+                            <div class="param-row" id="lf-lb-row" style="display:none;">
+                                <label for="lf-charge-concentration">장약 집중도 (lb)</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="lf-charge-concentration" value="3.60" step="0.1" min="1.0">
+                                    <span class="unit">kg/m</span>
+                                </div>
+                            </div>
+                            <div class="param-row" id="lf-column-ratio-row">
+                                <label for="lf-column-ratio">상부장약 비율</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="lf-column-ratio" value="0.5" step="0.05" min="0.3" max="0.7">
+                                    <span class="unit">배</span>
+                                </div>
+                            </div>
+                            <div class="param-row" id="lf-primer-row">
+                                <label for="lf-primer-weight">기폭약 중량</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="lf-primer-weight" value="1.0" step="0.1" min="0">
+                                    <span class="unit">kg</span>
+                                </div>
+                            </div>
+                            <div class="param-row" id="lf-primer-length-row">
+                                <label for="lf-primer-length">기폭약 길이</label>
+                                <div class="input-unit-wrapper">
+                                    <input type="number" id="lf-primer-length" value="0.45" step="0.01" min="0">
+                                    <span class="unit">m</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="btn-run-langefors" class="btn btn-primary btn-full" style="margin-top: 8px;">
+                            <i data-lucide="play" style="width:14px;height:14px;"></i> 자동 설계 실행
+                        </button>
+                    </div>
+                </div>
+            </section>
